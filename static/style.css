@@ -175,7 +175,9 @@ footer {
     padding: 20px 0;
     margin: 9% 5%;
     border-radius: 10px;
-    background-color: var(--color-6);
+    box-shadow: -10px 10px 7px gray;
+    background-color: var(--color-2);
+    color: white;
 }
 
 #game .title {
@@ -187,7 +189,7 @@ footer {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    background-color: var(--color-6);
+    background-color: var(--color-2);
 }
 
 #game .game h3 {
@@ -195,10 +197,7 @@ footer {
 }
 
 #game .game img {
-    border-style: solid;
-    border-radius: 25px;
-    border-color: var(--color-4);
-    border-width: 2px;
+    border-radius: 20%;
     height: 200px;
     width: 200px;
     object-fit: cover;
@@ -238,4 +237,20 @@ footer {
 }
 #game #statusText {
     text-align: center;
+}
+#restartBtn{
+    background-color: white;
+    color: black;
+    border-radius:22px;
+    border: none;
+    margin: none;
+    padding: 13px;
+    font-size: 23px;
+}
+div#gameContainer{
+  
+    padding: 10px;
+}
+#cellContainer{
+    background-color:black;
 }
