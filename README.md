@@ -24,6 +24,12 @@ Está tudo no arquivo requirements.txt
 git clone https://github.com/shirubaarison/jogoDaVeiaEP.git
 cd jogoDaVeiaEP
 pip install -r requirements.txt
+```
+
+Quando acabar de instalar as depedências, você precisa reiniciar o ambiente virtual (não sei porque isso acontece, talvez seja porque ele modifica algumas pastas no ambiente virtual)
+Depois disso, é só executar:
+
+```
 flask run
 ```
 
