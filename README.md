@@ -5,7 +5,7 @@ Meu projeto final do CS50, juntei meus amigos e fiz um jogo da velha "competitiv
 ## Descrição
 
 Pequeno projeto que estou fazendo para testar meus conhecimentos.
-Não é muito complexo, apenas usei algumas coisas que aprendi durante o curso do CS50. Sei que tá muito longe do ideal, mas é uma forma que achei de me divertir codando algo.
+Não é muito complexo, apenas usei algumas coisas que aprendi durante o curso do CS50. Sei que tá muito longe do ideal, mas é uma forma que achei de me divertir codando algo. (a parte de bancos de dados está porca)
 
 ## Como rodar
 
@@ -16,6 +16,7 @@ Está tudo no arquivo requirements.txt
 * SQLAlchemy
 * Werkzeug
 * python-dateutil
+* flask-session 
 
 ### Execução
 
