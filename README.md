@@ -32,7 +32,3 @@ Depois disso, é só executar:
 ```
 flask run
 ```
-
-## Autores
-
-Eu e os que eu achei na web, depois dou os crédito aqui.
