@@ -1,6 +1,6 @@
 # Jogo da Velha dos dotados
 
-Meu projeto final do CS50, juntei meus amigos e fiz um jogo da velha "competitivo" com essa temática.
+Um jogo da velha na web, que teoricamente tem uma IA.
 
 ## Descrição
 
