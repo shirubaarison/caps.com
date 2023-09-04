@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid py-5 text-center">
+    <h1 class="display-5" style="text-align: center; padding-bottom: 20px;">Entrar</h1>
+    <form action="/login" method="post">
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="username" name="username" placeholder="Nome de usuário" type="text">
+        </div>
+        <div class="mb-3">
+            <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Senha" type="password">
+        </div>
+        <p><a href="/register">Não possuo uma conta</a></p>
+        <button class="btn btn-primary" type="submit">Entrar</button>
+        <a href="/" class="btn btn-primary">Voltar</a>
+    </form>
+</div>
+{% endblock %}

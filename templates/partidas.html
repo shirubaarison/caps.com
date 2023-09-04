@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block title %}Partidas{% endblock %}
+
+{% block body %}
+<div class="container py-5 text-center">
+    <h1 style="text-align: left; padding-bottom: 5px" class="display-1">Partidas</h1>
+    <h5 style="text-align: left; margin-bottom: 20px;">Você ganhou {{ qtdVitorias }} e perdeu {{ qtdPerdas }}. 
+        {% if qtdVitorias > qtdPerdas %}
+        Arrasou!! Que notão...
+        {% endif %}
+    </h5>
+    <table class="table">
+        <thead class="thead-dark">
+            <th scope="col">#</th>
+            <th scope="col">Adversario</th>
+            <th scope="col">Resultado</th>
+            <th scope="col">Data</th>
+        </thead>
+        <tbody>
+            {% for item in partidas %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ item.opponent }}</td>
+                {% if item.state == "won" %}
+                <td class="bg-success" style="color: white;">
+                    Venceu
+                </td>
+                {% else %}
+                <td class="bg-danger"  style="color: white;">
+                    Perdeu
+                </td>
+                {% endif %}
+                <td>{{ item.datetime | strftime }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

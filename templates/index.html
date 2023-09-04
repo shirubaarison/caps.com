@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+
+{% block body %}
+<div class="hero">
+    <div class="maintext">
+        {% if session["user_id"] %}
+            <h1>Bem vindo {{ session["username"] }}!</h1>
+            <p>Jogue jogo da velha agora mesmo</p>
+            <button id="mainbutton"><a href="/jogar" id="jogar">JOGAR</a></button>
+        {% else %}
+        <h1>Dotados da EP</h1>
+        <p>Bem vindo ao site de jogo da velha competitivo. Crie sua conta agora mesmo para jogar</p>
+        <button id="mainbutton"><a href="/register" id="jogar">QUERO SABER MAIS PAI</a></button>
+        {% endif %}
+    </div>
+    <img src="{{ url_for('static', filename='src/dotados.jpg') }}" class="mainimg" alt="Dotados da EP">
+</div>    
+</div>
+<div class="information">
+    <h1 id="main">Membros da Família Sacana</h1>
+    <div class="images content">
+        <figure>
+            <img src="{{ url_for('static', filename='src/rian.jpg') }}" class="infoimg" alt="...">
+            <figcaption>Rian Oliveira Freitas</figcaption>
+        </figure>
+        <figure>
+            <img src="{{ url_for('static', filename='src/erik.webp') }}" class="infoimg" alt="...">
+            <figcaption>Erik Maia 15</figcaption>
+        </figure>
+        <figure>
+            <img src="{{ url_for('static', filename='src/alison.webp') }}" class="infoimg" alt="...">
+            <figcaption>Alysson B.</figcaption>
+        </figure>
+        <figure>
+            <img src="{{ url_for('static', filename='src/gleison.jpg') }}" class="infoimg" alt="...">
+            <figcaption>Erik Gleison (Gleyson)</figcaption>
+        </figure>
+        <figure>
+            <img src="{{ url_for('static', filename='src/davi.jpg') }}" class="infoimg" alt="...">
+            <figcaption>Davi (Famoso do Kwai)</figcaption>
+        </figure>
+        <figure>
+            <img src="{{ url_for('static', filename='src/gusga.jpg') }}" class="infoimg" alt="...">
+            <figcaption>Gusgabr jogos android</figcaption>
+        </figure>
+        <figure>
+            <img src="{{ url_for('static', filename='src/jv.webp') }}" class="infoimg" alt="...">
+            <figcaption>João mito</figcaption>
+        </figure>
+        <figure>
+            <img src="{{ url_for('static', filename='src/vruan.jpg') }}" class="infoimg" alt="...">
+            <figcaption>Victor Ruan (Tikonissin)</figcaption>
+        </figure>
+        <figure>
+            <img src="{{ url_for('static', filename='src/thiago.jpg') }}" class="infoimg" alt="...">
+            <figcaption>Thiago Valente</figcaption>
+        </figure>
+        <figure>
+            <img src="{{ url_for('static', filename='src/kaue.jpg') }}" class="infoimg" alt="...">
+            <figcaption>Kauê (KJ Vlogs)</figcaption>
+        </figure>
+        <figure>
+            <img src="{{ url_for('static', filename='src/fabio.jpg') }}" class="infoimg" alt="...">
+            <figcaption>Fábio Felipe Futsal</figcaption>
+        </figure>
+        <figure>
+            <img src="{{ url_for('static', filename='src/ian.jpg') }}" class="infoimg" alt="...">
+            <figcaption>Ian Marrom</figcaption>
+        </figure>
+        <figure>
+            <img src="{{ url_for('static', filename='src/hernandes.jpg') }}" class="infoimg" alt="...">
+            <figcaption>Hernandes</figcaption>
+        </figure>
+    </div>
+</div>
+{% endblock %}

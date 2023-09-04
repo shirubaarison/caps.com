@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block title %}Ranking{% endblock %}
+
+{% block body %}
+<div class="container py-5 text-center">
+    <h1 style="text-align: left; padding-bottom: 5px" class="display-1">Ranking</h1>
+    <table class="table">
+        <thead class="thead-dark">
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Vitorias</th>
+            <th scope="col">Derrotas</th>
+        </thead>
+        <tbody>
+            {% for itens in jogadores %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                    {% for k, v in itens.items() %}
+                    <td>{{ v }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
