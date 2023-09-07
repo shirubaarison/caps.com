@@ -22,9 +22,9 @@ metadata = db.MetaData()
 users = db.Table('users', metadata, autoload_with=engine)
 history = db.Table('history', metadata, autoload_with=engine)
 
-# Filtro para exibir a data de uma maneira bonita
 @app.template_filter('strftime')
 def _jinja2_filter_datetime(date, fmt=None):
+    """ Filtro para exibir a data de uma maneira bonita """
     date = parser.parse(date)
     native = date.replace(tzinfo=None)
     format='%b %d, %Y'
@@ -169,7 +169,7 @@ def jogar():
     
 @app.route("/partidas")
 def partidas():
-    """Visualiza as partidas jogadas na conta"""
+    """ Visualiza as partidas jogadas na conta """
     
     # Verificar se usuário está logado
     if not session:
@@ -200,17 +200,28 @@ def ranking():
 
     _jogadores = []
     j = {}
-    
+
+    users = usuarios()
+
+    for u in users:
+        j = {}
+        winsTotal, losesTotal = qtdJogador(u)
+        j['nome'] = u
+        j['wins'] = winsTotal
+        j['losses'] = losesTotal
+        if winsTotal != 0 or losesTotal != 0:
+            _jogadores.append(j)
+
     for jogador in jogadores:
         j = {}
         winsTotal, losesTotal = qtdOponente(jogador)
         j['nome'] = jogador
         j['wins'] = winsTotal
-        j['loses'] = losesTotal
-        _jogadores.append(j)
-    
-    _jogadores = sorted(_jogadores, key=lambda x: (x["wins"] - x["loses"], x["wins"]))
-    print(_jogadores)
+        j['losses'] = losesTotal
+        if winsTotal != 0 and losesTotal != 0:
+            _jogadores.append(j)
+
+    _jogadores = sorted(_jogadores, key=lambda x: (x["wins"] - x["losses"], x["wins"]), reverse=True)
 
     return render_template("ranking.html", jogadores=_jogadores)
 
@@ -220,9 +231,9 @@ def qtdVitoriasDerrotas():
 
     wins = loses = 0
     query = db.select(history.c['state']).where(history.c['userID'] == session["user_id"])
-    userQuery = connection.execute(query).fetchall()
+    executeQuery = connection.execute(query).fetchall()
 
-    for i in userQuery:
+    for i in executeQuery:
         if i[0] == "won":
             wins += 1
         elif i[0] == "lost":
@@ -236,12 +247,40 @@ def qtdOponente(jogador):
 
     opWins = opLoses = 0
     query = db.select(history.c['state']).where(history.c['opponent'] == jogador)
-    userQuery = connection.execute(query).fetchall()
+    executeQuery = connection.execute(query).fetchall()
 
-    for i in userQuery:
+    for i in executeQuery:
         if i[0] == "won":
             opWins += 1
         elif i[0] == "lost":
             opLoses += 1
 
     return opWins, opLoses
+
+def qtdJogador(jogador):
+    """ Retorna quantidade de vitórias e derrotas do oponente """
+
+    opWins = opLoses = 0
+    query = db.select(history.c['state']).where(history.c['username'] == jogador)
+    executeQuery = connection.execute(query).fetchall()
+
+    for i in executeQuery:
+        if i[0] == "won":
+            opWins += 1
+        elif i[0] == "lost":
+            opLoses += 1
+
+    return opWins, opLoses
+
+
+def usuarios():
+    """ Retorna jogadores do banco de dados """
+    
+    u = []
+    executeQuery = connection.execute(db.select(users.c['username'])).fetchall()
+    
+    print(executeQuery)
+    for i in executeQuery:
+        u.append(i[0])
+
+    return u
