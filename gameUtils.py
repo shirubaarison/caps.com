@@ -14,7 +14,8 @@ jogadores = [
         "Kaue (KJ vlogs)",
         "Fabio Futsal",
         "Ian Marrom",
-        "Hernandes" 
+        "Hernandes",
+        "Cainho"
     ]
 
 def selecionarAdversario():
@@ -25,18 +26,19 @@ def selecionarAdversario():
 def selecionarFoto(jogador):
     fotos = {
         "RianOli69": "rian.jpg",
-        "ErikMaia15": "erik.webp",
+        "ErikMaia15": "erik.jpeg",
         "Alysson": "alison.webp",
-        "ErikGleyson": "gleison.jpg",
+        "ErikGleyson": "gleison.jpeg",
         "Davi kwai": "davi.jpg",
         "Gusgabr": "gusga.jpg",
         "Joao mito": "jv.webp",
-        "Tikonissin": "vruan.jpg",
-        "Thiago": "thiago.jpg",
+        "Tikonissin": "vruan.jpeg",
+        "Thiago": "thiago.jpeg",
         "Kaue (KJ vlogs)": "kaue.jpg",
         "Fabio Futsal": "fabio.jpg",
-        "Ian Marrom": "ian.jpg",
-        "Hernandes": "hernandes.jpg" 
+        "Ian Marrom": "ian.jpeg",
+        "Hernandes": "hernandes.jpg",
+        "Cainho": "caio.jpeg"
     }
 
     return fotos[jogador]

@@ -153,8 +153,7 @@ footer {
   }
 
 .images.content {
-    padding: 18px;
-    transition: max-height 0.2s ease-out;
+    padding: 10px;
 }
 
 .alert.alert-primary.mb-0.text-center {
