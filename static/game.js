@@ -131,12 +131,7 @@ function makeMove()
     {
         let randomMove = Math.floor(Math.random() * options.length);
         
-        // Tirar alguns casos
-        if(options[i] == "")
-        {
-            move = i;
-        }
-        else if (options[randomMove] == "")
+        if (options[randomMove] == "")
         {
             move = randomMove;
         }
