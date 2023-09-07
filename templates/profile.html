@@ -3,7 +3,10 @@
 
 {% block body %}
 <div class="container py-5 text-center">
-    <h3 style="text-align: left; padding-bottom: 5px" class="display-1">{{ session["username"] }}</h3>
+    <div class="profile">
+        <img src="{{ url_for('static', filename='src/logo.jpg') }}" class="avatar" alt="...">
+        <h3 class="display-1">{{ session["username"] }}</h3>
+    </div>
     <form action="/account" method="post">
         <div class="input-group mb-3">
             <input autocomplete="off" autofocus class="form-control" name="oldpassword" placeholder="Senha antiga" type="password">

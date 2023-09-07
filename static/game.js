@@ -104,7 +104,9 @@ function checkWinner()
     {
         statusText.textContent = `Empate!`;
         running = false;
-        restartGame();
+        setTimeout(() => {
+            restartGame();
+        }, 1000);
     }
     else
     {
@@ -134,6 +136,10 @@ function makeMove()
         if (options[randomMove] == "")
         {
             move = randomMove;
+        }
+        else if(options[randomMove + i] == "")
+        {
+            move = randomMove + i;
         }
       }
   

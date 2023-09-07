@@ -27,9 +27,7 @@
                 <li style="margin-right: auto;"><a href="/">← Home</a></li>
                 {% endif %}
                 <li><a href="/perfil">{{ session["username"] }}</a></li>
-                {% if not inPartidas %}
                 <li><a href="/partidas">Partidas</a></li>
-                {% endif %}
                 <li><a href="/jogar">Jogar</a></li>
                 <li><a href="/ranking">Ranking</a></li>
                 <li><a href="/logout">Logout</a></li> 
