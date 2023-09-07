@@ -175,7 +175,7 @@ footer {
     padding: 20px 0;
     margin: 9% 5%;
     border-radius: 10px;
-    box-shadow: -10px 10px 7px gray;
+    box-shadow: 0 0 20px black;
     background-color: var(--color-2);
     color: white;
 }
@@ -234,6 +234,9 @@ footer {
     grid-template-columns: repeat(3, auto);
     width: auto;
     margin: 10px auto;
+    background-color: var(--color-8);
+    color: black;
+    box-shadow: 0 0 20px black;
 }
 #game #statusText {
     text-align: center;
@@ -250,7 +253,4 @@ footer {
 div#gameContainer{
   
     padding: 10px;
-}
-#cellContainer{
-    background-color:black;
 }
