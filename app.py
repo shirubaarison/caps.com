@@ -181,7 +181,7 @@ def partidas():
     
     wins, loses = qtdVitoriasDerrotas()
 
-    return render_template("partidas.html", partidas=userQuery, inPartidas=True, qtdVitorias=wins, qtdPerdas=loses)
+    return render_template("partidas.html", partidas=userQuery, qtdVitorias=wins, qtdPerdas=loses)
 
 @app.route("/perfil")
 def perfil():
