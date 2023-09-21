@@ -279,7 +279,6 @@ def usuarios():
     u = []
     executeQuery = connection.execute(db.select(users.c['username'])).fetchall()
     
-    print(executeQuery)
     for i in executeQuery:
         u.append(i[0])
 
