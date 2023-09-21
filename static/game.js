@@ -7,6 +7,7 @@ const nomeJogador = document.querySelector("#nomeJogador").innerHTML;
 const user = document.querySelector("#player1");
 
 let whoWon = "";
+let running = false;
 
 const winConditions = 
 [
@@ -22,8 +23,15 @@ const winConditions =
 
 let options = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "X";
+
 let ai = "O";
-let running = false;
+let human = "X";
+
+let scores = {
+    "X": -10,
+    "O": 10,
+    "tie": 0
+};
 
 initializeGame();
 
@@ -63,7 +71,7 @@ function changePlayer()
         running = false;
         statusText.textContent = `${nomeJogador} está pensando...`;
         setTimeout(() => {
-            botPlay();
+            makeMove();
             running = true;
         }, 1000);
     } 
@@ -72,7 +80,6 @@ function changePlayer()
 function checkWinner()
 {
     let roundWon = false;
-
     for(let i = 0; i < winConditions.length; i++){
         const condition = winConditions[i];
         const cellA = options[condition[0]];
@@ -86,6 +93,7 @@ function checkWinner()
         if(cellA == cellB && cellB == cellC)
         {
             roundWon = true;
+            whoWon = cellA;
             break;
         }
     }
@@ -93,8 +101,7 @@ function checkWinner()
     if (roundWon)
     {
         running = false;
-        statusText.textContent = `${currentPlayer} ganhou`;
-        whoWon = `${currentPlayer}`;
+        statusText.textContent = `${whoWon} ganhou`;
         setTimeout(() => {
             restartGame();
             sendData();
@@ -114,6 +121,36 @@ function checkWinner()
     }
 }
 
+function minimaxCheckWinner(board)
+{
+    let winner = null;
+
+    for(let i = 0; i < winConditions.length; i++){
+        const condition = winConditions[i];
+        const cellA = board[condition[0]];
+        const cellB = board[condition[1]];
+        const cellC = board[condition[2]];
+
+        if(cellA == "" || cellB == "" || cellC == "")
+        {
+            continue;
+        }
+        if(cellA == cellB && cellB == cellC)
+        {
+            winner = cellA;           
+            break;
+        }
+    }
+    if(whoWon == null && !board.includes(""))
+    {
+        return "tie";
+    }
+    else
+    {
+        return winner;
+    }
+}
+
 function restartGame()
 {
     options = ["", "", "", "", "", "", "", "", ""];
@@ -124,39 +161,78 @@ function restartGame()
 }
 
 function makeMove()
-{
+{   
     // "AI" escolhe a jogada
-    // Por enquanto está aleatória
     let move;
-    
+
+    let bestScore = -Infinity;
     for (let i = 0; i < options.length; i++) 
-    {
-        let randomMove = Math.floor(Math.random() * options.length);
-        
-        if (options[randomMove] == "")
+    {   
+        if (options[i] == "")
         {
-            move = randomMove;
+            // Necessario para gerar o score do minimax
+            options[i] = ai;
+            // Verificar as possibilidades da IA...
+            let score = minimax(options, 0, false)
+            // Desfazer a modificação
+            options[i] = '';
+            if (score > bestScore)
+            {
+                bestScore = score;
+                move = i;
+            }
         }
-        else if(options[randomMove + i] == "")
-        {
-            move = randomMove + i;
-        }
-      }
-  
-    return move;
-}
-
-function botPlay()
-{
-    const cells = document.getElementsByClassName("cell");
-    const move = makeMove();
-
-    //console.log(move);
-    //console.log(cells[move]);
-    
+    }
     updateCell(cells[move], move);
     checkWinner();
 }
+
+function minimax(board, depth, isMaximizing)
+{
+    // Verificar o ganhador
+    let result = minimaxCheckWinner(board);
+
+    // Se não for um "estado final"
+    if (result != null)
+    {
+        return scores[result] / depth;
+    }
+
+    // Se é a IA ou Jogador
+    if (isMaximizing)
+    {
+        let bestScore = -Infinity;
+        for (let i = 0; i < board.length; i++) 
+        {   
+            if (board[i] == "")
+            {
+                board[i] = ai;
+                let score = minimax(board, depth + 1, false);
+                board[i] = '';
+                
+                bestScore = Math.max(score, bestScore);
+            }
+        }
+        return bestScore;
+    }
+    else
+    {
+        let bestScore = Infinity;
+        for (let i = 0; i < board.length; i++) 
+        {   
+            if (board[i] == "")
+            {
+                board[i] = human;
+                let score = minimax(board, depth + 1, true);
+                board[i] = '';
+                
+                bestScore = Math.min(score, bestScore);
+            }
+        }
+        return bestScore;
+    }
+}
+
 
 // Serve para se comunicar com o back-end
 function sendData() 
@@ -171,11 +247,7 @@ function sendData()
     else if (whoWon == "O")
     {
         vitorias2++;
-    }
-
-    console.log(vitorias1);
-    console.log(vitorias2);
-    
+    }    
     $.ajax(
         {
         url: '/jogar',
