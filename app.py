@@ -38,7 +38,7 @@ def index():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    """ Registrar o desgraçado """
+    """ Registrar usuário """
     if request.method == "GET":
         if session:
             return redirect("/")
@@ -48,7 +48,7 @@ def register():
         password = request.form.get("password")
         conPassword = request.form.get("confirmation")
 
-        # Verificar se o usuário fez alguma cagada
+        # Verificar se o usuário não colocou nome ou senha ou esqueceu de digitar de novo
         if not username or not password or not conPassword:
             flash("Você esqueceu de algo seu animal")
             return redirect("/register")
@@ -65,10 +65,8 @@ def register():
             flash("Já existe um usuário com esse nome, pai")
             return redirect("/register")
 
-        # Hash
         passHash = generate_password_hash(password)
 
-        # Inserir
         connection.execute(db.insert(users), {"username": username, "hash": passHash})
         connection.commit()
 
@@ -78,7 +76,7 @@ def register():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    """ Registrar o desgraçado """
+    """ Logar o usuário """
     if request.method == "GET":
         if session:
             return redirect("/")
@@ -87,7 +85,6 @@ def login():
         username = request.form.get("username")
         password = request.form.get("password")
 
-        # Verificar se o usuário fez alguma cagada
         if not username or not password:
             flash("Você esqueceu de algo seu animal")
             return redirect("/login")
@@ -99,7 +96,6 @@ def login():
             flash("Usuário não encontrado, pai")
             return redirect("/login")
             
-        # Hash
         oldPassHash = connection.execute(db.select(users.c['hash']).where(users.c['username'] == username)).fetchall()
         passHash = generate_password_hash(password)
 
@@ -126,13 +122,12 @@ def logout():
     # Esquecer tudo...
     session.clear()
 
-    # Redirecionar
     flash("Deslogado com sucesso")
     return redirect("/")
 
 @app.route("/jogar", methods=["GET", "POST"])
 def jogar():
-    """Joga o jogo"""
+    """Joga o jogo da velha"""
     
     # Verificar se usuário está logado
     if not session:
@@ -140,7 +135,7 @@ def jogar():
         return redirect("/")
     
     if request.method == "GET":
-          # Selecionar o adversário aleatóriamente e sua foto também
+        # Selecionar o adversário aleatóriamente e sua foto também
         jogador = selecionarAdversario()
         jogadorFoto = f"src/{selecionarFoto(jogador)}"
 
@@ -159,9 +154,9 @@ def jogar():
 
         # Inserir na nova tabela de acordo com quem ganhou
         if whoOn == "X":
-            connection.execute(db.insert(history), {"username": session['username'] , "opponent": adversario, "state": "won", "value": 1, "userID": session["user_id"], "datetime": datetime.datetime.utcnow()})
+            connection.execute(db.insert(history), {"username": session['username'] , "opponent": adversario, "state": "won", "value": 1, "userID": session["user_id"], "datetime": datetime.datetime.now(datetime.UTC)})
         else:
-            connection.execute(db.insert(history), {"username": session['username'] , "opponent": adversario, "state": "lost", "value": 0, "userID": session["user_id"], "datetime": datetime.datetime.utcnow()})
+            connection.execute(db.insert(history), {"username": session['username'] , "opponent": adversario, "state": "lost", "value": 0, "userID": session["user_id"], "datetime": datetime.datetime.now(datetime.UTC)})
 
         connection.commit()
         
@@ -183,6 +178,7 @@ def partidas():
 
     return render_template("partidas.html", partidas=userQuery, qtdVitorias=wins, qtdPerdas=loses)
 
+#TODO: completar isso (acho que nunca irei)
 @app.route("/perfil")
 def perfil():
     """ Perfil """
