@@ -18,10 +18,12 @@ jogadores = [
         "Cainho"
     ]
 
+
 def selecionarAdversario():
     jogador = random.choice(jogadores)
 
     return jogador
+
 
 def selecionarFoto(jogador):
     fotos = {
