@@ -2,6 +2,8 @@
 
 Um jogo da velha na web, que teoricamente tem uma IA.
 
+Agora está no ar, só que guarda os dados temporariamente (eu acho)! https://jogodaveiaep.onrender.com/ (demora para carregar se não tiver alguém on)
+
 ## Descrição
 
 Pequeno projeto que estou fazendo para testar meus conhecimentos.
