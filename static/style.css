@@ -22,7 +22,7 @@ body[data-theme="claro"] {
 
 
 main {
-    padding-top: 64px;
+    padding-top: 56px;
     min-height: 100vh;
 }
 
@@ -34,6 +34,10 @@ main {
 
 a:hover {
     color: var(--color-7);
+}
+
+.navbarra {
+    background-color: var(--color-2);
 }
 
 .navbarra ul {
