@@ -154,9 +154,9 @@ def jogar():
 
         # Inserir na nova tabela de acordo com quem ganhou
         if whoOn == "X":
-            connection.execute(db.insert(history), {"username": session['username'] , "opponent": adversario, "state": "won", "value": 1, "userID": session["user_id"], "datetime": datetime.datetime.now(datetime.UTC)})
+            connection.execute(db.insert(history), {"username": session['username'] , "opponent": adversario, "state": "won", "value": 1, "userID": session["user_id"], "datetime": datetime.datetime.utcnow()})
         else:
-            connection.execute(db.insert(history), {"username": session['username'] , "opponent": adversario, "state": "lost", "value": 0, "userID": session["user_id"], "datetime": datetime.datetime.now(datetime.UTC)})
+            connection.execute(db.insert(history), {"username": session['username'] , "opponent": adversario, "state": "lost", "value": 0, "userID": session["user_id"], "datetime": datetime.datetime.utcnow()})
 
         connection.commit()
         
